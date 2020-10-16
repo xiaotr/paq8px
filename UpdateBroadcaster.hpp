@@ -4,6 +4,7 @@
 #include "IPredictor.hpp"
 #include <cassert>
 
+//这个类的目的是通过调用每个预测器的update()方法来通知概率预测器何时知道下一个位。
 /**
  * The purpose of this class is to inform probability predictors when
  * the next bit is known by calling the update() method of each predictor.

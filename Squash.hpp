@@ -1,6 +1,7 @@
 #ifndef PAQ8PX_SQUASH_HPP
 #define PAQ8PX_SQUASH_HPP
 
+// d转化为12bit的概率
 /**
  * return p = 1/(1 + exp(-d)), d scaled by 8 bits, p scaled by 12 bits
  * @param d

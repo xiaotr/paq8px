@@ -23,6 +23,7 @@
  * then part of this count is discarded to favor newer data over old.
  */
 class StateTable {
+    //状态表
     static constexpr uint8_t stateTable[256][4] = {
       {  1,  2, 0, 0},{  3,  5, 1, 0},{  4,  6, 0, 1},{  7, 10, 2, 0}, // 0-3
       {  8, 12, 1, 1},{  9, 13, 1, 1},{ 11, 14, 0, 2},{ 15, 19, 3, 0}, // 4-7

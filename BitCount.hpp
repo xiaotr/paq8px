@@ -3,6 +3,7 @@
 
 #include <cstdint>
 
+//算出v的二进制1的个数
 static auto bitCount(uint32_t v) -> uint32_t {
   v -= ((v >> 1U) & 0x55555555U);
   v = ((v >> 2U) & 0x33333333U) + (v & 0x33333333U);

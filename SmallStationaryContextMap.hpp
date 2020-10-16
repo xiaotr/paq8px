@@ -6,6 +6,7 @@
 #include "Stretch.hpp"
 #include "UpdateBroadcaster.hpp"
 
+// 直接查找上下文。对于建模的每一位，存储一个16位的预测。
 /**
  * Map for modelling contexts of (nearly-)stationary data.
  * The context is looked up directly. For each bit modelled, a 16bit prediction is stored.

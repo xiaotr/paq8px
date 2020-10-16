@@ -32,11 +32,13 @@
 // The different types are as follows:
 //
 
+// 就是个16bit的状态概率
 // - SmallStationaryContextMap.  0 <= cx*256 < m.
 //     The state is a 16-bit probability that is adjusted after each
 //     prediction.  c=1.
 // - ContextMap.  For large contexts, c >= 1.  context must be hashed.
 
+// 它包括一个内置的RunContextMap，用于预测在同一上下文中看到的最后一个字节，还包括映射到位历史状态的bit级上下文。
 // context map for large contexts.  Most modeling uses this type of context
 // map.  It includes a built in RunContextMap to predict the last byte seen
 // in the same context, and also bit-level contexts that map to a bit
@@ -57,13 +59,15 @@
 // 16 bit checksum, then the 7 elements are searched linearly.  If no match
 // is found, then the element with the lowest priority among the 5 elements
 // not in the LRU queue is replaced.  After a replacement, the queue is
-// emptied (so that consecutive misses favor a LFU replacement policy).
-// In all cases, the found/replaced element is put in the front of the queue.
+// emptied (so that consecutive misses favor a LFU replacement policy). //因此，连续的失误有利于LFU替换策略
+// In all cases, the found/replaced element is put in the front of the queue. //在所有情况下，找到/替换的元素都放在队列的前面。
 //
+// 优先级是第一个元素的状态号(具有0个附加上下文位的元素)。通过增加n0+n1(看到的比特数)对状态进行排序，实现了LFU替换策略。
 // The priority is the state number of the first element (the one with 0
 // additional bits of context).  The states are sorted by increasing n0+n1
 // (number of bits seen), implementing a LFU replacement policy.
 //
+// 计数器：count*2 + d
 // When the context ends on a byte boundary (bit 0), only 3 of the 7 bit
 // history states are used.  The remaining 4 bytes implement a run model
 // as follows: <count:7,d:1> <b1> <unused> <unused> where <b1> is the last byte
@@ -73,6 +77,7 @@
 // other byte values have been seen in this context prior to the last <count>
 // copies of <b1>.
 //
+// 第二次遇到这个同样的上下文才改变count
 // As an optimization, the last two hash elements of each byte (representing
 // contexts with 2-7 bits) are not updated until a context is seen for
 // a second time.  This is indicated by <count,d> = <1,0> (2).  After update,
@@ -86,10 +91,10 @@ private:
     const Shared * const shared;
     Random rnd;
     const int C; /**< max number of contexts */
-    Array<Bucket, 64> t; /**< bit and byte histories (statistics) */
+    Array<Bucket, 64> t; /**< bit and byte histories (statistics) */ //hash桶，每个64byte
     Array<uint8_t *> cp; /**< c pointers to current bit history */
     Array<uint8_t *> cp0; /**< First element of 7 element array containing cp[i] */
-    Array<uint32_t> cxt; /**< c whole byte context hashes */
+    Array<uint32_t> cxt; /**< c whole byte context hashes */ //
     Array<uint16_t> chk; /**< c whole byte context checksums */
     Array<uint8_t *> runP; /**< c [0..3] = count, value, unused, unused */
     StateMap sm; /**< c maps of state -> p */

@@ -10,6 +10,7 @@
 #include <cassert>
 #include <cstdint>
 
+//多了随机数，包括一个StateMap
 class IndirectMap : IPredictor {
 public:
     static constexpr int MIXERINPUTS = 2;

@@ -19,6 +19,9 @@ with the bit history states to provide additional states that are then
 mapped to predictions.
 */
 
+// 3用于存储此上下文中看到的最后3个不同的字节。
+// 然后将字节历史记录与位历史记录状态组合在一起，以提供其他状态，然后将其映射到预测。
+
 #include "IPredictor.hpp"
 #include "Bucket.hpp"
 #include "Hash.hpp"
@@ -52,7 +55,7 @@ private:
     StateMap runMap;
     StateMap stateMap;
     StateMap bhMap8B;
-    StateMap bhMap12B;
+    StateMap bhMap12B; //4个statemap
     uint32_t index; /**< next context to set by @ref ContextMap2::set(), resets to zero after every round */
     const uint32_t mask;
     const int hashBits;

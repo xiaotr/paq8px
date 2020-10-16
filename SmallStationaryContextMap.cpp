@@ -23,7 +23,7 @@ void SmallStationaryContextMap::reset() {
   for( uint32_t i = 0; i < data.size(); ++i ) {
     data[i] = 0x7FFF;
   }
-  cp = &data[0];
+  cp = &data[0]; //上下文
 }
 
 void SmallStationaryContextMap::update() {

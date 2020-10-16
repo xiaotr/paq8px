@@ -2,6 +2,7 @@
 
 auto Ilog::log(uint16_t x) const -> int { return static_cast<int>(t[x]); }
 
+//获得一个实例
 auto Ilog::getInstance() -> Ilog& {
   static Ilog instance;
   return instance;

@@ -28,8 +28,9 @@ public:
 
     //Shared state and statistics (global)
     
-    RingBuffer<uint8_t> buf; /**< Rotating input queue set by Predictor */
+    RingBuffer<uint8_t> buf; /**< Rotating input queue set by Predictor */ //环形数组
     uint8_t options = 0; /**< Compression options (bit field) */
+    //默认值，将被CPU调度程序覆盖，并且可以从命令行覆盖
     SIMD chosenSimd = SIMD_NONE; /**< default value, will be overridden by the CPU dispatcher, and may be overridden from the command line */
     uint8_t level = 0; /**< level=0: no compression (only transformations), level=1..12 compress using less..more RAM */
     uint64_t mem = 0; /**< pre-calculated value of 65536 * 2^level */

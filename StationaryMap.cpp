@@ -16,6 +16,7 @@ StationaryMap::StationaryMap(const Shared* const sh, const int bitsOfContext, co
   set(0);
 }
 
+//mask作为掩码，只取低几位，stride作为间隔数
 void StationaryMap::setDirect(uint32_t ctx) {
   context = (ctx & mask) * stride;
   bCount = b = 0;
@@ -30,6 +31,7 @@ void StationaryMap::setscale(int scale) {
   this->scale = scale;
 }
 
+//概率是0.5
 void StationaryMap::reset(const int rate) {
   for( uint32_t i = 0; i < data.size(); ++i ) {
     data[i] = (0x7FF << 20) | min(1023, rate);
@@ -39,22 +41,22 @@ void StationaryMap::reset(const int rate) {
 
 void StationaryMap::update() {
   INJECT_SHARED_y
-  uint32_t count = min(min(limit, 0x3FF), ((*cp) & 0x3FF) + 1);
+  uint32_t count = min(min(limit, 0x3FF), ((*cp) & 0x3FF) + 1);// 计数器
   int prediction = (*cp) >> 10; // 22 bit p
   int error = (y << 22) - prediction; // 22 bit error
   error = ((error / 8) * dt[count]) / 1024; // error = error *  1.0/(count+1.5)
-  prediction = min(0x3FFFFF, max(0, prediction + error));
+  prediction = min(0x3FFFFF, max(0, prediction + error));// 
   *cp = (prediction << 10) | count;
   b += static_cast<uint32_t>((y != 0) && b > 0);
 }
 
 void StationaryMap::mix(Mixer &m) {
-  shared->GetUpdateBroadcaster()->subscribe(this);
+  shared->GetUpdateBroadcaster()->subscribe(this);// 加入消息订阅
   cp = &data[context + b];
-  const int prediction = (*cp) >> 20;
+  const int prediction = (*cp) >> 20; // 12bit的概率
   m.add((stretch(prediction) * scale) >> 8);
   m.add(((prediction - 2048) * scale) >> 9);
   bCount++;
-  b += b + 1;
+  b += b + 1; //bCount掩码？
   assert(bCount <= bTotal);
 }

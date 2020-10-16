@@ -3,6 +3,7 @@
 
 #include "Array.hpp"
 
+//ilog(x)函数
 /**
  * ilog(x) = round(log2(x) * 16), 0 <= x < 64K
  */

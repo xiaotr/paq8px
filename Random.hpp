@@ -4,6 +4,7 @@
 #include "Array.hpp"
 #include <cstdint>
 
+//32位伪随机数生成器
 /**
  * 32-bit pseudo random number generator
  */

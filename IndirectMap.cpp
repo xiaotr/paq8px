@@ -15,16 +15,19 @@ IndirectMap::IndirectMap(const Shared* const sh, const int bitsOfContext, const 
   sm.setLimit(limit);
 }
 
+//直接将上下文写入
 void IndirectMap::setDirect(const uint32_t ctx) {
   context = (ctx & mask) * stride;
   bCount = b = 0;
 }
 
+//hash值写入
 void IndirectMap::set(const uint64_t ctx) {
   context = (finalize64(ctx, maskBits)) * stride;
   bCount = b = 0;
 }
 
+//更新statetable，cp指针指向的是8位状态
 void IndirectMap::update() {
   INJECT_SHARED_y
   StateTable::update(cp, y, rnd);
@@ -33,6 +36,7 @@ void IndirectMap::update() {
 
 void IndirectMap::setScale(const int Scale) { this->scale = Scale; }
 
+//写入概率，sm写概率，相当于只有1个上下文
 void IndirectMap::mix(Mixer &m) {
   shared->GetUpdateBroadcaster()->subscribe(this);
   cp = &data[context + b];

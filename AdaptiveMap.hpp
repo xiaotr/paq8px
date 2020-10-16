@@ -6,6 +6,7 @@
 #include "Shared.hpp"
 #include "DivisionTable.hpp"
 
+//基类，高22位为概率，低10位计数
 /**
  * This is the base class for StateMap and APM.
  * Purpose: common members are here

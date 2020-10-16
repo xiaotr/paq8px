@@ -6,6 +6,9 @@
 #include <cstdint>
 #include <cstdio>
 
+//乘法哈希将熵提升到更高的位
+//在组合之后，必须通过取较高的位来最终确定，以便将范围缩小到所需的哈希表大小
+
 //////////////////////// Hash functions //////////////////////////
 //
 // All hash functions are constructed using multiplicative hashes
@@ -89,6 +92,7 @@ constexpr uint64_t hash() {
   }
 }
 
+//终结器(范围减少)。在执行(组合)乘法哈希之后，保持必要的比特数。
 /**
  * Finalizers (range reduction).
  * Keep the necessary number of bits after performing a

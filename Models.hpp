@@ -14,13 +14,13 @@
 #include "model/IndirectModel.hpp"
 #include "model/JpegModel.hpp"
 #include "model/LinearPredictionModel.hpp"
-#include "model/MatchModel.hpp"
+#include "model/MatchModel.hpp" //匹配模型
 #include "model/NestModel.hpp"
-#include "model/NormalModel.hpp"
-#include "model/RecordModel.hpp"
+#include "model/NormalModel.hpp" //正态模型
+#include "model/RecordModel.hpp" //记录模型
 #include "model/SparseMatchModel.hpp"
-#include "model/SparseModel.hpp"
-#include "model/WordModel.hpp"
+#include "model/SparseModel.hpp" //稀疏模型
+#include "model/WordModel.hpp"   //字符模型
 #include "model/XMLModel.hpp"
 #include "model/DecAlphaModel.hpp"
 #include "lstm/LstmModel.hpp"

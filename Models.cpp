@@ -23,6 +23,7 @@
 
 Models::Models(Shared* const sh) : shared(sh) {}
 
+//创建实例，静态对象，只有在程序结束时被释放
 auto Models::normalModel() -> NormalModel & {
   static NormalModel instance {shared, shared->mem * 32};
   return instance;

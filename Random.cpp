@@ -9,6 +9,7 @@ Random::Random() : table(64) {
   i = 0;
 }
 
+//返回随机数
 auto Random::operator()() -> uint32_t {
   return ++i, table[i & 63U] = table[(i - 24) & 63U] ^ table[(i - 55) & 63U];
 }

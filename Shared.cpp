@@ -27,6 +27,7 @@ void Shared::init(uint8_t level) {
   toScreen = !isOutputDirected();
 }
 
+//更新全局变量
 void Shared::update(int y) {
   State.y = y;
   State.c0 += State.c0 + y;

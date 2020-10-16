@@ -6,7 +6,7 @@ void UpdateBroadcaster::subscribe(IPredictor *subscriber) {
   assert(n < 1024);
 }
 
-void UpdateBroadcaster::broadcastUpdate() {
+void UpdateBroadcaster::broadcastUpdate() { //广播更新
   for( int i = 0; i < n; i++ ) {
     IPredictor *subscriber = subscribers[i];
     subscriber->update();

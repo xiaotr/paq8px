@@ -5,11 +5,12 @@
 #include <cassert>
 #include <cstdint>
 
+//间接上下文
 template<typename T>
 class IndirectContext {
 private:
     Array<T> data;
-    T *ctx;
+    T *ctx; //ctx是指针
     const uint32_t ctxMask, inputMask, inputBits;
 
 public:
@@ -25,16 +26,19 @@ public:
       assert(inputBits > 0 && inputBits <= 8);
     }
 
+    //将i放到低位
     void operator+=(const uint32_t i) {
       assert(i <= inputMask);
       (*ctx) <<= inputBits;
       (*ctx) |= i;
     };
 
+    //ctxMask是掩码
     void operator=(const uint32_t i) {
       ctx = &data[i & ctxMask];
     }
-
+    
+    //()返回cxt指向的值
     auto operator()() -> T & {
       return *ctx;
     };

@@ -4,6 +4,7 @@ auto StateTable::next(uint8_t const state, const int y) -> uint8_t {
   return stateTable[state][y];
 }
 
+//超过现有状态时，随机数改变状态
 auto StateTable::next(uint8_t const oldState, const int y, Random &rnd) -> uint8_t {
   uint8_t newState = stateTable[oldState][y];
   if( newState >= 205 ) { // for all groups of four states higher than idx 205

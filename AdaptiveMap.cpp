@@ -10,7 +10,7 @@ AdaptiveMap::AdaptiveMap(const Shared* const sh, const int n, const int lim) : s
 void AdaptiveMap::update(uint32_t *const p) {
   uint32_t p0 = p[0];
   const int n = p0 & 1023U; //count
-  const int pr = p0 >> 10U; //prediction (22-bit fractional part)
+  const int pr = p0 >> 10U; //prediction (22-bit fractional part) //预测(22位小数)
   if( n < limit ) {
     ++p0;
   } else {
@@ -18,6 +18,7 @@ void AdaptiveMap::update(uint32_t *const p) {
   }
   INJECT_SHARED_y
   const int target = y << 22U; //(22-bit fractional part)
+  //计数(n)越大，调整pr+=(target - pr)/(n+1.5)就越少。
   const int delta = ((target - pr) >> 3U) * dt[n]; //the larger the count (n) the less it should adapt pr+=(target-pr)/(n+1.5)
   p0 += delta & 0xfffffc00U;
   p[0] = p0;

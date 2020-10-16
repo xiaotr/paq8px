@@ -15,6 +15,7 @@
  *   3) subscribe for the broadcast in p() or mix(),
  *   4) receive the update event from UpdateBroadcaster and update its internal state in update().
  */
+//基类包括更新函数
 class IPredictor {
 public:
     virtual void update() = 0;

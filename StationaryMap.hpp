@@ -8,6 +8,9 @@
 #include "Stretch.hpp"
 #include "UpdateBroadcaster.hpp"
 
+//对静态数据模型有用，直接查找上下文。
+//对于建模的每个位元，一个32bit存储一个22位的预测和一个10位的适应速率偏移。
+//更低的补偿意味着更快的适应。将在每次出现时增加，直到达到更高的上限。
 /**
  * Map for modelling contexts of (nearly-)stationary data.
  * The context is looked up directly. For each bit modelled, a 32bit element stores
@@ -35,6 +38,8 @@ private:
     int *dt;
 
 public:
+    //bitsOfContext：每个上下文使用多少位。更高的位被丢弃。
+    //inputBits：有多少位[1..8]的输入将为每个上下文建模。必须按这些间隔设置新上下文。
     /**
      * Construct using (2^(BitsOfContext+2))*((2^InputBits)-1) bytes of memory.
      * @param bitsOfContext How many bits to use for each context. Higher bits are discarded.
